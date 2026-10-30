@@ -2,6 +2,8 @@
 
 [`src/wolfram/TopSpin.wl`](../src/wolfram/TopSpin.wl) finds a sequence of legal moves for any arrangement of the standard 20-token TopSpin puzzle. It sifts the position through a stored table of short words (Minkwitz's method). A solve takes about 0.4 ms and averages about 180 moves. With `Method -> "TwoPhase"` it calls a C library instead, Kociemba's two-phase method, whose solutions are less than half as long.
 
+![The TopSpin puzzle in its solved state: 20 numbered beads in an oval slot, with the turnstile over positions 1 to 4](../img/TopSpin.svg)
+
 ## Solve a position
 
 Load the package from the repository root and supply the labels in fixed-position order. Positions 1 through 4 are in the turnstile.

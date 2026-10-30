@@ -2,6 +2,8 @@
 
 Solves any position of the 20-token TopSpin puzzle, in Wolfram Language with an optional C two-phase solver. Split out of [OEIS_Mathematica](https://github.com/shenghuiy/OEIS_Mathematica) with its history.
 
+![The TopSpin puzzle in its solved state: 20 numbered beads in an oval slot, with the turnstile over positions 1 to 4](img/TopSpin.svg)
+
 - `src/wolfram/TopSpin.wl`: `TopSpinSolve[state]` returns the moves, `TopSpinApply[state, moves]` replays them. [Docs](docs/TopSpin.md).
 - `src/c/topspin_twophase/`: the C two-phase solver behind `Method -> "TwoPhase"`. [Docs](docs/TopSpinTwoPhase.md).
 - `test/wolfram/TopSpin.wlt`: `VerificationTest` cases.
