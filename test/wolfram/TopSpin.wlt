@@ -6,8 +6,8 @@ VerificationTest[
 ]
 
 VerificationTest[
-  Block[{$ContextPath = {}}, {Names["OEIS`TopSpin*"], Names["OEIS`topSpin*"]}],
-  {{"OEIS`TopSpinApply", "OEIS`TopSpinSolve"}, {}},
+  Block[{$ContextPath = {}}, {Names["TopSpinSolver`TopSpin*"], Names["TopSpinSolver`topSpin*"]}],
+  {{"TopSpinSolver`TopSpinApply", "TopSpinSolver`TopSpinSolve"}, {}},
   TestID -> "public-symbols"
 ]
 
@@ -119,7 +119,7 @@ VerificationTest[
 
 VerificationTest[
   Module[{reducedQ = StringFreeQ[#, "RL" | "LR" | "FF" | StringRepeat["R", 11] | StringRepeat["L", 11]] &},
-    AllTrue[Flatten[OEIS`Private`topSpinTable], reducedQ] &&
+    AllTrue[Flatten[TopSpinSolver`Private`topSpinTable], reducedQ] &&
     BlockRandom[
       SeedRandom[20261030];
       AllTrue[Table[RandomSample[Range[20]], {10}], reducedQ[StringJoin[TopSpinSolve[#]]] &]
@@ -129,7 +129,7 @@ VerificationTest[
   TestID -> "table-and-solutions-reduced"
 ]
 
-VerificationTest[Length /@ OEIS`Private`topSpinTable, Range[19, 1, -1], TestID -> "table-shape"]
+VerificationTest[Length /@ TopSpinSolver`Private`topSpinTable, Range[19, 1, -1], TestID -> "table-shape"]
 
 VerificationTest[
   And @@ Flatten[Table[
@@ -137,7 +137,7 @@ VerificationTest[
         p = Fold[Function[{s, m}, Switch[m,
           "R", RotateRight[s], "L", RotateLeft[s],
           "F", Join[Reverse[s[[1 ;; 4]]], s[[5 ;; 20]]], _, $Failed
-        ]], Range[20], Characters[OEIS`Private`topSpinTable[[i, k]]]],
+        ]], Range[20], Characters[TopSpinSolver`Private`topSpinTable[[i, k]]]],
         b = 21 - i
       },
       p[[b + 1 ;;]] === Range[b + 1, 20] && p[[b]] == k
@@ -180,7 +180,7 @@ VerificationTest[
 ]
 
 VerificationTest[
-  Block[{OEIS`Private`topSpinTwoPhaseFunction = ($Failed &)}, TopSpinSolve[Range[20], Method -> "TwoPhase"]],
+  Block[{TopSpinSolver`Private`topSpinTwoPhaseFunction = ($Failed &)}, TopSpinSolve[Range[20], Method -> "TwoPhase"]],
   $Failed,
   {TopSpinSolve::nolib},
   TestID -> "two-phase-without-library"
@@ -189,7 +189,7 @@ VerificationTest[
 (* A library that finds no solution (code -3) leaves the stored table's moves *)
 
 VerificationTest[
-  Block[{OEIS`Private`topSpinTwoPhaseFunction = (Function[-3] &)},
+  Block[{TopSpinSolver`Private`topSpinTwoPhaseFunction = (Function[-3] &)},
     With[{state = Join[{3, 2, 1, 20}, Range[4, 19]]},
       {TopSpinSolve[state, Method -> "TwoPhase"], TopSpinSolve[state, Method -> "TwoPhase", "CompressRotations" -> True]} ===
         {TopSpinSolve[state], TopSpinSolve[state, "CompressRotations" -> True]}
@@ -201,7 +201,7 @@ VerificationTest[
 ]
 
 VerificationTest[
-  If[OEIS`Private`topSpinTwoPhaseFunction[] === $Failed, True,
+  If[TopSpinSolver`Private`topSpinTwoPhaseFunction[] === $Failed, True,
     Module[{short = {Range[20], Join[{4, 3, 2, 1}, Range[5, 20]], RotateRight[Range[20], 7], Join[{3, 2, 1, 20}, Range[4, 19]]}},
       {TopSpinSolve[#, Method -> "TwoPhase"] & /@ short, TopSpinSolve[#, Method -> "TwoPhase", "CompressRotations" -> True] & /@ short} ===
         {{{}, {"F"}, ConstantArray["L", 7], {"F", "L"}}, {{}, {"F"}, {"L7"}, {"F", "L"}}}
@@ -212,7 +212,7 @@ VerificationTest[
 ]
 
 VerificationTest[
-  If[OEIS`Private`topSpinTwoPhaseFunction[] === $Failed, True,
+  If[TopSpinSolver`Private`topSpinTwoPhaseFunction[] === $Failed, True,
     BlockRandom[
       SeedRandom[20261030];
       Module[{states = Table[RandomSample[Range[20]], {10}], moves, steps},
@@ -237,7 +237,7 @@ VerificationTest[
 (* The transposition has every pair in its slot and the parity wrong, the hardest case for phase 1 (about 5 s) *)
 
 VerificationTest[
-  If[OEIS`Private`topSpinTwoPhaseFunction[] === $Failed, True,
+  If[TopSpinSolver`Private`topSpinTwoPhaseFunction[] === $Failed, True,
     Module[{states = {Reverse[Range[20]], ReplacePart[Range[20], {19 -> 20, 20 -> 19}]}, steps},
       steps = TopSpinSolve[#, Method -> "TwoPhase", "CompressRotations" -> True] & /@ states;
       Length /@ steps === {41, 40} && And @@ MapThread[TopSpinApply[#1, #2] === Range[20] &, {states, steps}]
@@ -248,7 +248,7 @@ VerificationTest[
 ]
 
 VerificationTest[
-  If[OEIS`Private`topSpinTwoPhaseFunction[] === $Failed, True,
+  If[TopSpinSolver`Private`topSpinTwoPhaseFunction[] === $Failed, True,
     BlockRandom[
       SeedRandom[20261030];
       Module[{states = Table[RandomSample[Range[20]], {3}], one, two, timed},
