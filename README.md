@@ -18,3 +18,5 @@ Run the tests from a Wolfram kernel in this folder:
 ```wolfram
 TestReport["test/wolfram/TopSpin.wlt"]
 ```
+
+The C library's first call writes uild/topspin_pairing.bin (655 MB, about 2 minutes) and uses about 1.7 GB. Its reproducible mode (limit < 0) must give the same moves on any thread count, which the pinned lengths in TopSpin.wlt depend on. Not built in CI.
