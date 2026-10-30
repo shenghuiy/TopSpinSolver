@@ -89,7 +89,7 @@ Minkwitz's algorithm fills the table. It runs through every reduced word in `R`,
 The private `topSpinBuildTable[iterations]` runs this. Its kernel is compiled with `FunctionCompile` on the first call, which takes about a minute, and is not compiled when the package loads. The stored table is `topSpinBuildTable[10^6]`: all reduced words through length 18 and some of length 19, with a pass over pairs every 20,000 words and a starting cap of 30. To rebuild it and compare (about 90 s, most of it compiling):
 
 ```wolfram
-OEIS`Private`topSpinBuildTable[10^6] === OEIS`Private`topSpinTable
+TopSpinSolver`Private`topSpinBuildTable[10^6] === TopSpinSolver`Private`topSpinTable
 (* True *)
 ```
 

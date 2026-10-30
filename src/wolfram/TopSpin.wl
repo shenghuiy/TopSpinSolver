@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-BeginPackage["OEIS`"];
+BeginPackage["TopSpinSolver`"];
 
 TopSpinSolve::usage = "TopSpinSolve[state] returns a list of R, L and F move strings that solves a permutation of Range[20] in fixed positions. The solution is not necessarily shortest. With \"CompressRotations\" -> True, each run of rotations is one step, written Rk or Lk for k positions (R or L for one). Method -> \"TwoPhase\" finds much shorter solutions with the two-phase solver built from src/c/topspin_twophase; Method -> {\"TwoPhase\", \"TimeLimit\" -> t} searches for t seconds, and {\"TwoPhase\", \"PhaseOneLengths\" -> k} searches k phase-1 lengths instead of 1.";
 TopSpinApply::usage = "TopSpinApply[state, moves] executes R, L and F move strings from left to right. R rotates right, L rotates left, and F reverses positions 1 through 4. Rk and Lk rotate k positions.";
