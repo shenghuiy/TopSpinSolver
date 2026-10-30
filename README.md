@@ -1,6 +1,7 @@
 ﻿# TopSpinSolver
 
-Solves any position of the 20-token TopSpin puzzle, in Wolfram Language with an optional C two-phase solver
+Solves any position of the 20-token TopSpin puzzle, in Wolfram Language with an optional C two-phase solver.
+
 ![The TopSpin puzzle in its solved state: 20 numbered beads in an oval slot, with the turnstile over positions 1 to 4](img/TopSpin.svg)
 
 - `src/wolfram/TopSpin.wl`: `TopSpinSolve[state]` returns the moves, `TopSpinApply[state, moves]` replays them. [Docs](docs/TopSpin.md).
